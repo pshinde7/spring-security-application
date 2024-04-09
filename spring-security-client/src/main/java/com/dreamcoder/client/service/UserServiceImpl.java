@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,6 +66,19 @@ public class UserServiceImpl implements UserService {
         String response = ObjectUtils.isEmpty(verificationToken) ? "invalid" : checkExpirationTime(verificationToken);
 
         return response;
+    }
+
+    /**
+     * @param oldToken
+     * @return
+     */
+    @Override
+    public VerificationToken generateNewVerificationTone(String oldToken) {
+
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(oldToken);
+        verificationToken.setToken(UUID.randomUUID().toString());
+        verificationTokenRepository.save(verificationToken);
+        return verificationToken;
     }
 
     private String checkExpirationTime(VerificationToken verificationToken) {
