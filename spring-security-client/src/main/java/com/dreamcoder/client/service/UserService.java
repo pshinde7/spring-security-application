@@ -1,6 +1,7 @@
 package com.dreamcoder.client.service;
 
 import com.dreamcoder.client.entity.User;
+import com.dreamcoder.client.entity.VerificationToken;
 import com.dreamcoder.client.model.UserModel;
 import org.springframework.stereotype.Component;
 
@@ -11,4 +12,6 @@ public interface UserService {
     void saveVerificationTokenForUser(String token, User user);
 
     String verifyRegistration(String token);
+
+    VerificationToken generateNewVerificationTone(String oldToken);
 }
