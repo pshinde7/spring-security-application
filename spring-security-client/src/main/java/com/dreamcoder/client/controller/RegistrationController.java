@@ -56,8 +56,7 @@ public class RegistrationController {
     @GetMapping("/verifyRegistration")
     public String verifyRegistration(@RequestParam("token") String token) {
         String result = userService.verifyRegistration(token);
-        String response = result.equals("valid") ? "Succesfully Verified" : result;
-        return response;
+        return result.equals("valid") ? "Successfully Verified" : result;
     }
 
     private String applicationUrl(HttpServletRequest request) {
