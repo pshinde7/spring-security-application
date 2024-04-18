@@ -10,6 +10,28 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
+  security:
+    oauth2:
+      client:
+        registration:
+          api-client-oidc:
+            provider: spring
+            clientId: api-client
+            clientSecret: secret
+            authorizationGrantType: authorization_code
+            redirectUri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            scope: openid
+            clientName: api-client-oidc
+          api-client-authorization-code:
+            provider: spring
+            clientId: api-client
+            clientSecret: secret
+            authorizationGrantType: authorization_code
+            scope: api.read
+            redirectUri: "http://127.0.0.1:8080/authorized"
+            clientName: api-client-authorization-code
+          provider:
+            spring:
+              issuer-uri: http://localhost:9000
 server:
   port: 8080
